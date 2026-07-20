@@ -159,6 +159,7 @@ venv.bak/
 .env.*
 !.env.example
 
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -218,3 +219,4 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+/storage/logs
