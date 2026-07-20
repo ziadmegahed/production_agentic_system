@@ -22,3 +22,13 @@ dependencies = [
 
 [project.urls]                                              # Project repository URL
 Repository = "https://github.com/ziadmegahed/production_agentic_system.git"
+
+# Setuptools Configuration
+# ==========================
+# Uses the src/ project layout instead of placing packages at the repository root
+[tool.setuptools]
+package-dir = {"" = "src"}                                 # Treat src/ as the root package directory
+
+# Automatically discover Python packages inside src/
+[tool.setuptools.packages.find]
+where = ["src"]      
