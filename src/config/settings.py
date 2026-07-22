@@ -177,6 +177,20 @@ class Settings(BaseSettings):
     LOG_MAX_BYTES: Optional[int] = Field(default=10 * 1024 * 1024)  # 10 MB
     LOG_BACKUP_COUNT: Optional[int] = Field(default=10)
 
+    # ==================================================
+    # Database (PostgreSQL) Settings
+    # ==================================================
+    POSTGRES_HOST:str = Field()               # Database host (Docker service name or hostname)
+    POSTGRES_DB:str = Field()                 # Database name
+    POSTGRES_USER:str = Field()               # Database username
+    POSTGRES_PORT:int = Field()               # Database port
+    POSTGRES_PASSWORD:str = Field()           # Database password
+
+    # Connection pooling settings
+    POSTGRES_POOL_SIZE:int = Field()            # Base number of persistent DB connections
+    POSTGRES_MAX_OVERFLOW:int = Field()        # Extra connections allowed above pool size
+
+    model_config = SettingsConfigDict(env_file=ENV_FILE, env_file_encoding="utf-8")
 
     @model_validator(mode = "after")
     def configure_environment_defaults(self):
