@@ -92,3 +92,25 @@ class User(SQLAlchemyBase):
         onupdate=func.now(),
         nullable=True
     )
+
+    async def update(self, user_id: UUID, **kwargs) -> User | None:
+        """Apply a partial update to an existing user.
+
+        Only keys present in ``kwargs`` are written; ``None`` values are
+        skipped so callers can pass ``UserUpdate.model_dump(exclude_unset=True)``.
+
+        Args:
+            user_id: UUID of the user to update.
+            **kwargs: Column-value pairs to update.
+
+        Returns:
+            The updated ``User`` instance, or ``None`` if not found.
+        """
+        user = await self.get(user_id)
+        if user is None:
+            return None
+        for key, value in kwargs.items():
+            if value is not None:
+                setattr(user, key, value)
+        await self._db_session.flush()
+        return user
